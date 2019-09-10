@@ -8,10 +8,11 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>springboot-rabbitmq</module>
         <module>concurrent</module>
         <module>design-mode</module>
         <module>base-starter</module>
+        <module>spring</module>
+        <module>jvm</module>
     </modules>
 
     <parent>
