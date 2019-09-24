@@ -14,8 +14,8 @@ public class IocMain {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("application.xml");
 //        IocServiceImpl iocServiceImpl = applicationContext.getBean("iocServiceImpl", IocServiceImpl.class);
 //        iocServiceImpl.say();
-        User user1 = applicationContext.getBean("user", User.class);
-        User user2 = applicationContext.getBean("user", User.class);
-        System.out.println(user1 == user2);
+        IocServiceImpl.Mail mail
+                = applicationContext.getBean("mail", IocServiceImpl.Mail.class);
+        System.out.println(mail.getAddress());
     }
 }

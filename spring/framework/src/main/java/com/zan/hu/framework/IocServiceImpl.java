@@ -1,5 +1,7 @@
 package com.zan.hu.framework;
 
+import lombok.Data;
+
 /**
  * @version 1.0
  * @Author hupeng
@@ -11,5 +13,11 @@ public class IocServiceImpl implements IocService {
     @Override
     public void say() {
         System.out.println("hello");
+    }
+
+
+    @Data
+    public static class Mail {
+        private String address;
     }
 }

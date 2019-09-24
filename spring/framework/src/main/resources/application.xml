@@ -15,4 +15,8 @@
         <property name="success" value="true"/>
         <property name="username" value="zoom"/>
     </bean>
+
+    <bean id="mail" class="com.zan.hu.framework.IocServiceImpl$Mail">
+        <property name="address" value="长沙"/>
+    </bean>
 </beans>
