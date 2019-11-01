@@ -1,7 +1,8 @@
 package com.zan.hu.framework;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @version 1.0
@@ -11,11 +12,14 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  **/
 public class IocMain {
     public static void main(String[] args) {
-        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("application.xml");
-//        IocServiceImpl iocServiceImpl = applicationContext.getBean("iocServiceImpl", IocServiceImpl.class);
-//        iocServiceImpl.say();
-        IocServiceImpl.Mail mail
-                = applicationContext.getBean("mail", IocServiceImpl.Mail.class);
-        System.out.println(mail.getAddress());
+        Map<String, AtomicInteger> stringAtomicIntegerMap = new HashMap<>();
+        AtomicInteger atomicInteger = new AtomicInteger(0);
+        atomicInteger.incrementAndGet();
+        stringAtomicIntegerMap.put("aaa", atomicInteger);
+
+        stringAtomicIntegerMap.get("aaa").incrementAndGet();
+        System.out.println(stringAtomicIntegerMap.get("aaa").get());
     }
+
+
 }

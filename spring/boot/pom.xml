@@ -14,6 +14,9 @@
     <modules>
         <module>file-upload</module>
         <module>security</module>
+        <module>import-demo</module>
+        <module>listener</module>
+        <module>elasticsearch</module>
     </modules>
 
 

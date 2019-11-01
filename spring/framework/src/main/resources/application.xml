@@ -1,22 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-        https://www.springframework.org/schema/beans/spring-beans.xsd">
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+                http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-    <!--<bean id="iocServiceImpl" class="com.zan.hu.framework.IocServiceImpl"/>-->
+    <bean id="iocServiceImpl" class="com.zan.hu.framework.IocServiceImpl"/>
 
-    <bean id="rayBeanFactoryPostProcessor" class="com.zan.hu.framework.RayBeanFactoryPostProcessor"/>
+    <!--<bean id="rayBeanFactoryPostProcessor" class="com.zan.hu.framework.RayBeanFactoryPostProcessor"/>-->
 
-    <bean id="rayBeanPostProcessor" class="com.zan.hu.framework.RayBeanPostProcessor"/>
+    <!--<bean id="rayBeanPostProcessor" class="com.zan.hu.framework.RayBeanPostProcessor"/>-->
 
-    <bean id="user" class="com.zan.hu.framework.User" init-method="initMethod">
-        <property name="age" value="10"/>
-        <property name="success" value="true"/>
-        <property name="username" value="zoom"/>
-    </bean>
+    <!--<bean id="user" class="com.zan.hu.framework.User" init-method="initMethod">-->
+    <!--<property name="age" value="10"/>-->
+    <!--<property name="success" value="true"/>-->
+    <!--<property name="username" value="zoom"/>-->
+    <!--</bean>-->
 
-    <bean id="mail" class="com.zan.hu.framework.IocServiceImpl$Mail">
-        <property name="address" value="长沙"/>
-    </bean>
+    <!--<bean id="mail" class="com.zan.hu.framework.IocServiceImpl$Mail">-->
+    <!--<property name="address" value="长沙"/>-->
+    <!--</bean>-->
+
+    <aop:aspectj-autoproxy/>
+    <bean class="com.zan.hu.framework.AspectJDeal"/>
 </beans>

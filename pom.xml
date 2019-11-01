@@ -13,6 +13,8 @@
         <module>base-starter</module>
         <module>spring</module>
         <module>jvm</module>
+        <module>basic</module>
+        <module>jdk7</module>
     </modules>
 
     <parent>
