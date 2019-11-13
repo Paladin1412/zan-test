@@ -11,5 +11,11 @@
 
     <artifactId>basic</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>com.esotericsoftware</groupId>
+            <artifactId>reflectasm</artifactId>
+            <version>1.11.0</version>
+        </dependency>
+    </dependencies>
 </project>
