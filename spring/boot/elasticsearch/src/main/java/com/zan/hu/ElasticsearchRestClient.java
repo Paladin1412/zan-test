@@ -19,11 +19,8 @@ import java.util.Objects;
  * @Date 2019-10-21 16:43
  * @Description todo
  **/
-@Configuration
+//@Configuration
 public class ElasticsearchRestClient {
-
-    @Value("${elasticsearch.ip}")
-    String ipPort;
 
     /**
      * 超时时间设为5分钟
@@ -56,7 +53,6 @@ public class ElasticsearchRestClient {
 
 
     private HttpHost makeHttpHost(String s) {
-        //assert StringUtils.isNotEmpty(s);
         String[] address = s.split(":");
         if (address.length == ADDRESS_LENGTH) {
             String ip = address[0];

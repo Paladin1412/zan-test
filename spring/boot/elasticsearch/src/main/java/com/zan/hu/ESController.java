@@ -25,7 +25,6 @@ import org.elasticsearch.search.aggregations.Aggregations;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms;
 import org.elasticsearch.search.aggregations.bucket.terms.TermsAggregationBuilder;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,8 +45,11 @@ import java.util.Map;
 @RequestMapping("/es")
 public class ESController {
 
-    @Autowired
     private RestHighLevelClient highLevelClient;
+
+    public ESController(ElasticsearchConfiguration configuration) throws Exception {
+        this.highLevelClient = configuration.getObject();
+    }
 
     @GetMapping
     public void create() throws IOException {
@@ -105,8 +107,18 @@ public class ESController {
 //        RangeQueryBuilder rangeQueryBuilder = QueryBuilders.rangeQuery("createdTime");
 //        boolQueryBuilder.must(rangeQueryBuilder.gte(1571712755000l));
 //        boolQueryBuilder.must(rangeQueryBuilder.lte(1571971955000l));
-//
 //        builder.query(boolQueryBuilder);
+
+//        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        //聚合查询
+//        TermsAggregationBuilder aggregation = AggregationBuilders.terms("numberOfWorkOrdersEnteredSum")
+//                .field("operator");
+        //多条件查询
+//        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery().must(QueryBuilders.matchQuery("merchantId", request.getMerchantId()))
+//                .must(QueryBuilders.matchQuery("type", WorkOrderBehavior.ENTRY.name()))
+//                .must(builderBoolQueryBuilder(request));
+//        searchSourceBuilder.query(boolQueryBuilder);
+//        searchSourceBuilder.aggregation(aggregation);
 
         request.source(builder);
 

@@ -1,2 +1,15 @@
-elasticsearch:
-  ip: localhost:9200
+elkconfig:
+  clustername: test
+  index: test122
+  hosts:
+    - ip: localhost
+      port: 9200
+      schema: http
+#    -
+#      ip: 192.168.1.3
+#      port: 9200
+#      schema: http
+#    -
+#      ip: 192.168.1.4
+#      port: 9200
+#      schema: http
