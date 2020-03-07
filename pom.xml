@@ -12,6 +12,8 @@
         <module>base-starter</module>
         <module>spring</module>
         <module>jvm</module>
+        <module>cache</module>
+        <module>utils</module>
     </modules>
 
     <parent>
@@ -52,6 +54,10 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
         </dependency>
     </dependencies>
 
