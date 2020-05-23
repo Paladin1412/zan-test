@@ -9,7 +9,7 @@ public class ServiceProxy<T> implements InvocationHandler {
 
     private Class<T> interfaces;
 
-    ServiceProxy(Class<T> interfaces) {
+    public ServiceProxy(Class<T> interfaces) {
         this.interfaces = interfaces;
     }
 
