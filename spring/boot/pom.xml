@@ -18,6 +18,7 @@
         <module>listener</module>
         <module>elasticsearch</module>
         <module>swagger</module>
+        <module>def-plugin</module>
     </modules>
 
 
