@@ -1,6 +1,10 @@
 package com.zan.hu;
 
-import com.alibaba.fastjson.JSON;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.elasticsearch.action.admin.indices.create.CreateIndexRequest;
 import org.elasticsearch.action.admin.indices.create.CreateIndexResponse;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
@@ -30,11 +34,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 /**
  * @version 1.0
  * @Author hupeng
@@ -55,23 +54,23 @@ public class ESController {
     public void create() throws IOException {
         CreateIndexRequest request = new CreateIndexRequest("pybbs");
         request.settings(Settings.builder()
-                .put("index.number_of_shards", 1)
-                .put("index.number_of_shards", 5));
+            .put("index.number_of_shards", 1)
+            .put("index.number_of_shards", 5));
         XContentBuilder mappingBuilder = JsonXContent.contentBuilder()
-                .startObject()
-                .startObject("properties")
-                .startObject("title")
-                .field("type", "keyword")
-//                .field("analyzer", "ik_max_word")
-//                .field("fielddata", "true")
-                .endObject()
-                .startObject("content")
-                .field("type", "keyword")
-//                .field("analyzer", "ik_max_word") // ik_max_word 这个分词器是ik的，可以去github上搜索安装es的ik分词器插件
-                //.field("fielddata", true)
-                .endObject()
-                .endObject()
-                .endObject();
+            .startObject()
+            .startObject("properties")
+            .startObject("title")
+            .field("type", "keyword")
+            //                .field("analyzer", "ik_max_word")
+            //                .field("fielddata", "true")
+            .endObject()
+            .startObject("content")
+            .field("type", "keyword")
+            //                .field("analyzer", "ik_max_word") // ik_max_word 这个分词器是ik的，可以去github上搜索安装es的ik分词器插件
+            //.field("fielddata", true)
+            .endObject()
+            .endObject()
+            .endObject();
         request.mapping("topic", mappingBuilder);
 
         CreateIndexResponse response = highLevelClient.indices().create(request, RequestOptions.DEFAULT);
@@ -79,14 +78,14 @@ public class ESController {
         System.out.println(response.isAcknowledged());
     }
 
-
     @GetMapping("/document")
     public void createDocument() throws IOException {
         Map<String, Object> map = new HashMap<>();
         map.put("title", "上海自来水来自海上232313300");
         map.put("content", "llllkkkk");
 
-        IndexRequest request = new IndexRequest("pybbs", "topic"); // 这里最后一个参数是es里储存的id，如果不填，es会自动生成一个，个人建议跟自己的数据库表里id保持一致，后面更新删除都会很方便
+        IndexRequest request = new IndexRequest("pybbs",
+            "topic"); // 这里最后一个参数是es里储存的id，如果不填，es会自动生成一个，个人建议跟自己的数据库表里id保持一致，后面更新删除都会很方便
         request.source(map);
         IndexResponse response = highLevelClient.index(request, RequestOptions.DEFAULT);
         System.out.println();
@@ -100,31 +99,32 @@ public class ESController {
         // builder.from(0).size(2); // 分页
         // builder.query(QueryBuilders.matchQuery("content", "llll"));
         TermsAggregationBuilder aggregation = AggregationBuilders.terms("by_company")
-                .field("content");
+            .field("content");
         builder.aggregation(aggregation);
 
-//        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
-//        RangeQueryBuilder rangeQueryBuilder = QueryBuilders.rangeQuery("createdTime");
-//        boolQueryBuilder.must(rangeQueryBuilder.gte(1571712755000l));
-//        boolQueryBuilder.must(rangeQueryBuilder.lte(1571971955000l));
-//        builder.query(boolQueryBuilder);
+        //        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+        //        RangeQueryBuilder rangeQueryBuilder = QueryBuilders.rangeQuery("createdTime");
+        //        boolQueryBuilder.must(rangeQueryBuilder.gte(1571712755000l));
+        //        boolQueryBuilder.must(rangeQueryBuilder.lte(1571971955000l));
+        //        builder.query(boolQueryBuilder);
 
-//        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        //        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
         //聚合查询
-//        TermsAggregationBuilder aggregation = AggregationBuilders.terms("numberOfWorkOrdersEnteredSum")
-//                .field("operator");
+        //        TermsAggregationBuilder aggregation = AggregationBuilders.terms("numberOfWorkOrdersEnteredSum")
+        //                .field("operator");
         //多条件查询
-//        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery().must(QueryBuilders.matchQuery("merchantId", request.getMerchantId()))
-//                .must(QueryBuilders.matchQuery("type", WorkOrderBehavior.ENTRY.name()))
-//                .must(builderBoolQueryBuilder(request));
-//        searchSourceBuilder.query(boolQueryBuilder);
-//        searchSourceBuilder.aggregation(aggregation);
+        //        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery().must(QueryBuilders.matchQuery
+        //        ("merchantId", request.getMerchantId()))
+        //                .must(QueryBuilders.matchQuery("type", WorkOrderBehavior.ENTRY.name()))
+        //                .must(builderBoolQueryBuilder(request));
+        //        searchSourceBuilder.query(boolQueryBuilder);
+        //        searchSourceBuilder.aggregation(aggregation);
 
         request.source(builder);
 
         SearchResponse response = highLevelClient.search(request, RequestOptions.DEFAULT);
         Aggregations aggregations = response.getAggregations();
-        Terms parsedStringTerms = (Terms) aggregations.get("by_company");
+        Terms parsedStringTerms = (Terms)aggregations.get("by_company");
         List<? extends Terms.Bucket> buckets = parsedStringTerms.getBuckets();
         for (Terms.Bucket bucket : buckets) {
             System.out.println(bucket.getKeyAsString());
@@ -133,7 +133,8 @@ public class ESController {
         for (SearchHit documentFields : response.getHits()) {
             String sourceAsString = documentFields.getSourceAsString();
             System.out.println(sourceAsString);
-            System.out.println(String.format("result:%s, code:%s, status: %s", JSON.toJSONString(documentFields), response.status().getStatus(), response.status().name()));
+            // System.out.println(String.format("result:%s, code:%s, status: %s", JSON.toJSONString(documentFields),
+            // response.status().getStatus(), response.status().name()));
         }
     }
 
@@ -153,7 +154,6 @@ public class ESController {
         AcknowledgedResponse response = highLevelClient.indices().delete(request, RequestOptions.DEFAULT);
         System.out.println(String.format("result:%s", response.isAcknowledged()));
     }
-
 
     public void bulkDocument() throws IOException {
         BulkRequest requests = new BulkRequest();

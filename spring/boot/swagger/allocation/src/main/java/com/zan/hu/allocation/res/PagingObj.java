@@ -1,10 +1,10 @@
 package com.zan.hu.allocation.res;
 
+import java.util.List;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-
-import java.util.List;
 
 /**
  * @version 1.0
@@ -28,11 +28,10 @@ public class PagingObj<T> {
     @ApiModelProperty("data")
     List<T> data;
 
-
     public PagingObj(int total, int currentPage, int pageSize, List<T> t) {
         this.total = total;
-        this.currentPage = 1;
-        this.pageSize = 20;
+        this.currentPage = currentPage;
+        this.pageSize = pageSize;
         this.data = t;
     }
 }
