@@ -1,6 +1,6 @@
 package com.zan.hu.allocation.res.datasource;
 
-import com.zan.hu.allocation.req.DataSourceRequestAdd;
+import com.zan.hu.allocation.req.DataSourceRequestAddOrEdit;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -26,5 +26,5 @@ public class FiDataSourceResponseGetById extends FiDataSourceResponse {
 
 
     @ApiModelProperty("行字段")
-    List<DataSourceRequestAdd.LineField> lineFields;
+    List<DataSourceRequestAddOrEdit.LineField> lineFields;
 }

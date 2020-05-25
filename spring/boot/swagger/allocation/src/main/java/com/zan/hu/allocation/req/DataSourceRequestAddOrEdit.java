@@ -15,7 +15,11 @@ import java.util.List;
  **/
 @Data
 @ApiModel("数据源新增or编辑")
-public class DataSourceRequestAdd extends PagePara {
+// TODO: 2020-05-25 mingcheng
+public class DataSourceRequestAddOrEdit extends PagePara {
+
+    @ApiModelProperty("主键")
+    private Long Id;
 
     @ApiModelProperty("数据源名称")
     String name;
@@ -24,13 +28,14 @@ public class DataSourceRequestAdd extends PagePara {
     String tableName;
 
     @ApiModelProperty("数据库类型")
-    String dataType;
+    String databaseType;
 
     @ApiModelProperty("摘要")
     String summary;
 
     @ApiModelProperty("筛选字段")
-    String filterCondition;
+    // TODO: 2020-05-25  duixiang
+        String filterCondition;
 
     @ApiModelProperty("行字段")
     List<LineField> lineFields;

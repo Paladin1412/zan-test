@@ -4,8 +4,8 @@ import com.google.common.collect.Lists;
 import com.zan.hu.allocation.req.AllocationActivityRequestAdd;
 import com.zan.hu.allocation.req.AllocationActivityRequestList;
 import com.zan.hu.allocation.res.PagingObj;
-import com.zan.hu.allocation.res.allocationactivity.AllocationActivityResponseGetById;
-import com.zan.hu.allocation.res.allocationactivity.AllocationActivityResponseList;
+import com.zan.hu.allocation.res.activity.AllocationActivityResponseGetById;
+import com.zan.hu.allocation.res.activity.AllocationActivityResponseList;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -25,13 +25,14 @@ import org.springframework.web.bind.annotation.RestController;
  * @Description
  **/
 @RestController
-@RequestMapping("/cf/finance/allocation/activity")
+@RequestMapping("/cf/allocation/activity")
 @Api("分摊活动")
 public class AllocationActivityController {
 
     @PostMapping
     @ApiOperation(value = "分摊活动列表")
-    public PagingObj<AllocationActivityResponseList> list(@RequestBody AllocationActivityRequestList allocationActivityRequestList) {
+    public PagingObj<AllocationActivityResponseList> list(
+        @RequestBody AllocationActivityRequestList allocationActivityRequestList) {
         return new PagingObj(40, 1, 20, Lists.newArrayList(new AllocationActivityResponseList()));
     }
 
@@ -40,7 +41,6 @@ public class AllocationActivityController {
     public void add(@RequestBody AllocationActivityRequestAdd allocationActivityRequestAdd) {
     }
 
-
     @PutMapping
     @ApiOperation(value = "编辑分摊活动")
     public void edit(AllocationActivityRequestAdd allocationActivityRequestAdd) {
@@ -48,6 +48,7 @@ public class AllocationActivityController {
 
     @GetMapping
     @ApiOperation(value = "查看分摊活动")
+    @ApiImplicitParam(name = "id", value = "主键", required = true, dataType = "Long", paramType = "query")
     public AllocationActivityResponseGetById getById(@RequestParam("id") Long id) {
         return new AllocationActivityResponseGetById();
     }
@@ -55,12 +56,15 @@ public class AllocationActivityController {
     @GetMapping("/check/filed")
     @ApiOperation(value = "check该分摊活动名称or分摊活动code是否重复")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "allocationActivityName", value = "分摊活动名称", required = false, dataType = "String", paramType = "query"),
-            @ApiImplicitParam(name = "allocationActivityCode", value = "分摊活动code", required = false, dataType = "String", paramType = "query"),
+        @ApiImplicitParam(name = "allocationActivityName", value = "分摊活动名称", required = false, dataType = "String",
+            paramType = "query"),
+        @ApiImplicitParam(name = "allocationActivityCode", value = "分摊活动code", required = false, dataType = "String",
+            paramType = "query"),
 
     })
-    public boolean checkFiledRepeat(@RequestParam(value = "allocationActivityName", required = false) String allocationActivityName,
-                                    @RequestParam(value = "allocationActivityCode", required = false) String allocationActivityCode) {
+    public boolean checkFiledRepeat(
+        @RequestParam(value = "allocationActivityName", required = false) String allocationActivityName,
+        @RequestParam(value = "allocationActivityCode", required = false) String allocationActivityCode) {
         return false;
     }
 }

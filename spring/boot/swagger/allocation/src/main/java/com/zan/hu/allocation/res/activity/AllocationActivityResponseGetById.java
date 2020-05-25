@@ -1,4 +1,4 @@
-package com.zan.hu.allocation.res.allocationactivity;
+package com.zan.hu.allocation.res.activity;
 
 import com.zan.hu.allocation.req.AllocationActivityRequestAdd;
 import io.swagger.annotations.ApiModelProperty;

@@ -1,6 +1,10 @@
 package com.zan.hu.allocation.controller;
 
-import com.zan.hu.allocation.req.DataSourceRequestAdd;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import com.zan.hu.allocation.req.DataSourceRequestAddOrEdit;
 import com.zan.hu.allocation.req.DataSourceRequestList;
 import com.zan.hu.allocation.res.PagingObj;
 import com.zan.hu.allocation.res.datasource.FiDataSourceResponseGetById;
@@ -17,10 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 /**
  * @version 1.0
  * @Author hupeng
@@ -28,7 +28,7 @@ import java.util.List;
  * @Description
  **/
 @RestController
-@RequestMapping("/cf/finance/datasource")
+@RequestMapping("/cf/allocation/datasource")
 @Api("数据源管理")
 public class DataSourceController {
 
@@ -50,48 +50,50 @@ public class DataSourceController {
         return new PagingObj(40, 1, 20, dataSourceRes);
     }
 
-
     @PostMapping("/add")
     @ApiOperation(value = "新增数据源")
-    public void add(@RequestBody DataSourceRequestAdd dataSourceRequestAdd) {
+    public void add(@RequestBody DataSourceRequestAddOrEdit dataSourceRequestAddOrEdit) {
 
     }
-
 
     @PutMapping
     @ApiOperation(value = "编辑数据源")
-    public void edit(@RequestBody DataSourceRequestAdd dataSourceRequestAdd) {
+    public void edit(@RequestBody DataSourceRequestAddOrEdit dataSourceRequestAddOrEdit) {
 
     }
-
 
     @GetMapping
     @ApiOperation(value = "查询数据源")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "主键ID", required = true, dataType = "Long", paramType = "query"),
+        @ApiImplicitParam(name = "id", value = "主键ID", required = true, dataType = "Long", paramType = "query"),
     })
     public FiDataSourceResponseGetById getById(@RequestParam("id") Long id) {
         return new FiDataSourceResponseGetById();
     }
 
+    // TODO: 2020-05-25  根据数据源查询分摊字段
 
     @GetMapping("/check/line/filed")
     @ApiOperation(value = "check该数据源的行字段是否应用分摊规则")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "主键ID", required = true, dataType = "Long", paramType = "query"),
+        @ApiImplicitParam(name = "id", value = "主键ID", required = true, dataType = "Long", paramType = "query"),
     })
     public boolean checkLineFiled(@RequestParam("id") Long id) {
         return true;
     }
 
-
     @GetMapping("/check/filed")
     @ApiOperation(value = "check该数据源名称是否重复")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "datasourceName", value = "数据源名称", required = false, dataType = "String", paramType = "query"),
+        @ApiImplicitParam(name = "datasourceName", value = "数据源名称", required = false, dataType = "String",
+            paramType = "query"),
     })
     public boolean checkFiledRepeat(@RequestParam(value = "datasourceName", required = false) String datasourceName) {
         return false;
     }
+
+    // TODO: 2020-05-25 查询任务
+    // TODO: 2020-05-25 提交新任务 
+    // TODO: 2020-05-25 查看执行结果
 
 }

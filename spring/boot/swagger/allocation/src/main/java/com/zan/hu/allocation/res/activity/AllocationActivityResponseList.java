@@ -1,4 +1,4 @@
-package com.zan.hu.allocation.res.allocationactivity;
+package com.zan.hu.allocation.res.activity;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

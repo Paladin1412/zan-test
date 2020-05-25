@@ -17,6 +17,7 @@
         <module>import-demo</module>
         <module>listener</module>
         <module>elasticsearch</module>
+        <module>poi-export</module>
         <module>swagger</module>
         <module>def-plugin</module>
     </modules>
